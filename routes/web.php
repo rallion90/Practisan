@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AuthenticationController;
+
+use App\Http\Controllers\DashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +17,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('login', [AuthenticationController::class, 'login'])->name('user.login');
+
+Route::post('login', [AuthenticationController::class, 'loginTrigger'])->name('user.login_trigger');
+
+
+Route::get('dashboard', [DashboardController::class, 'index'])->middleware('auth:admin');
+
+
+//Route::get('dashboard', [DashboardController::class, 'index'])->middleware('auth:admin');
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
